@@ -1,4 +1,4 @@
-#Betani
+# Betani
 Betani (Belanja Hasil Tani) merupakan sebuah aplikasi e-commerce untuk para petani Indonesia memasarkan hasil tani-nya.
 
 Made by Team 01 - BE0224:
