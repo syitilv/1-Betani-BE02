@@ -39,6 +39,6 @@ var petaniSchema = new Schema({
     timestamps: true
 });
 
-var Petani = mongoose.model('Tani', petaniSchema);
+var Petani = mongoose.model('petani', petaniSchema);
 
 module.exports = Petani;

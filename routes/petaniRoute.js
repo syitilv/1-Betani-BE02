@@ -60,7 +60,7 @@ petaniRouter.route('/:petaniId')
 })
 
 .put((req, res, next) => {
-    Petani.findOneAndUpdate(req.params.petaniId, {$set: req.body}, {new: true})
+    Petani.findByIdAndUpdate(req.params.petaniId, {$set: req.body}, {new: true})
     .then((update) => {
         if(update == null){
             res.statusCode = 403;
