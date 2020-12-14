@@ -1,20 +1,29 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+// const cors = require('cors');   // added
+// const weather = require("./weather");   // added
 
 // models
-const Petani = require('../models/petani');
+const Farmer = require('../models/farmers');
 
 // routes
-var petaniRouter = express.Router();    // inisiasi router
+var farmerRouter = express.Router();    // inisiasi router
 
-petaniRouter.use(bodyParser.json());
+// petaniRouter.use(bodyParser.json());
+// petaniRouter.use(cors());
+
+// var app = express;    // added
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(cors());
 
 // method API (router kosong)
-petaniRouter.route('/')
+farmerRouter.route('/')
 
 .post((req, res, next) => {
-    Petani.create(req.body)
+    Farmer.create(req.body)
     .then((tambah) => {
         console.log('Registrasi Petani Berhasil', tambah);
         res.statusCode = 200;
@@ -24,7 +33,7 @@ petaniRouter.route('/')
 })
 
 .get((req, res, next) => {
-    Petani.find({})
+    Farmer.find({})
     .then((tampil) => {
         res.statusCode = 200;
         res.setHeader('Conten-Type','application/json');
@@ -33,7 +42,7 @@ petaniRouter.route('/')
 })
 
 .delete((req, res, next) => {
-    Petani.remove()
+    Farmer.remove()
     .then((hapus) => {
         console.log('Data Semua Petani Berhasil Dihapus');
         res.statusCode = 200;
@@ -43,10 +52,10 @@ petaniRouter.route('/')
 })
 
 // method API (router diikuti ID Petani)
-petaniRouter.route('/:petaniId')
+farmerRouter.route('/:farmerId')
 
 .get((req, res, next) => {
-    Petani.findById(req.params.petaniId)
+    Farmer.findById(req.params.farmerId)
     .then((tampil) => {
         if(tampil == null){
             res.statusCode = 403;
@@ -60,7 +69,7 @@ petaniRouter.route('/:petaniId')
 })
 
 .put((req, res, next) => {
-    Petani.findByIdAndUpdate(req.params.petaniId, {$set: req.body}, {new: true})
+    Farmer.findByIdAndUpdate(req.params.farmerId, {$set: req.body}, {new: true})
     .then((update) => {
         if(update == null){
             res.statusCode = 403;
@@ -73,7 +82,7 @@ petaniRouter.route('/:petaniId')
 })
 
 .delete((req, res, next) => {
-    Petani.findByIdAndDelete(req.params.petaniId)
+    Farmer.findByIdAndDelete(req.params.farmerId)
     .then((hapus) => {
         if(hapus == null){
             res.statusCode = 403;
@@ -84,6 +93,47 @@ petaniRouter.route('/:petaniId')
         }
     });
 })
+
+// // method API (router diikuti cuaca)
+// petaniRouter.route('/:cuaca')
+// .get((req, res, next) => {
+//     Petani.find(req.params.cuaca)
+//     .then(() => {
+//         const oneDayInMs = 86400000;
+//         setInterval(() => weather.get(), oneDayInMs);
+//     })
+// })
 ;
 
-module.exports = petaniRouter;
+// app.route('/weather')
+// resource.get().then(() => {
+//     render('index');
+// });
+// app.get('/weather', weather.index);
+
+// app.route('/')
+// resource.get().then(() => {
+//     const oneDayInMs = 86400000;
+//     setInterval(() => weather.get(), oneDayInMs);
+// });
+
+// app.listen(3000, function () {
+//     console.log('Example app listening on port 4000!');
+
+//     resource.get()
+//         .then(() => {
+            // const oneDayInMs = 86400000;
+            // setInterval(() => weather.get(), oneDayInMs);
+//         });
+// });
+
+// app.listen(4000, function () {
+// // Update
+//     resource.get()
+//         .then(() => {
+//             const oneDayInMs = 86400000;
+//             setInterval(() => weather.get(), oneDayInMs);
+//         });
+// });
+
+module.exports = farmerRouter;

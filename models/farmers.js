@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var petaniSchema = new Schema({
+var farmerSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -39,6 +39,6 @@ var petaniSchema = new Schema({
     timestamps: true
 });
 
-var Petani = mongoose.model('petani', petaniSchema);
+var Farmer = mongoose.model('farmer', farmerSchema);
 
-module.exports = Petani;
+module.exports = Farmer;

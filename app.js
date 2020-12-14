@@ -6,12 +6,12 @@ var logger = require('morgan');
 var mongoose = require('mongoose'); // added
 
 // models
-var Petani = require('./models/petani');  // added
+var Farmer = require('./models/farmers');  // added
 
 // routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var petaniRouter = require('./routes/petaniRoute'); // added
+var farmerRouter = require('./routes/farmerRoute'); // added
 
 var app = express();
 
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/petani', petaniRouter); // added
+app.use('/petani', farmerRouter); // added
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
