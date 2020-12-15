@@ -11,7 +11,8 @@ var Farmer = require('./models/farmers');  // added
 // routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var farmerRouter = require('./routes/farmerRoute'); // added
+var farmerRouter = require('./routes/farmerRoute'); // farmer
+var weatherRouter = require('./routes/weather');  // api bmkg
 
 var app = express();
 
@@ -31,7 +32,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/petani', farmerRouter); // added
+app.use('/petani', farmerRouter); // farmer
+app.use('/cuaca', weatherRouter); // cuaca (per kota)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
