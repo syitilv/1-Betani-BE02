@@ -23,7 +23,8 @@ var app = express();
 // mongoose.connect(url);
 
 //live database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/db_betani');
+var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
+mongoose.connect(url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -63,7 +64,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port);
+// const port = process.env.PORT || 3000;
+// app.listen(port);
 
 module.exports = app;
