@@ -3,22 +3,33 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose'); // added
 
-// models
-var Farmer = require('./models/farmers');  // added
+var dotenv = require('dotenv').config();
 
-// routes
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+//routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+<<<<<<< HEAD
 var farmerRouter = require('./routes/farmerRoute'); // farmer
 var weatherRouter = require('./routes/weather');  // api bmkg
+=======
+var farmerRouter = require('./routes/farmerRoute');
+var buyersRouter = require('./routes/buyersRoute');
+var cropRouter = require('./routes/cropRoute'); // added
+>>>>>>> 3b676fa48099b4294d827330da40d7fcc9ced2ec
 
 var app = express();
 
-// akses database
-var url = 'mongodb://localhost:27017/db_betani';  // added
-var connect = mongoose.connect(url);  // added
+// local database
+// var url = 'mongodb://localhost:27017/db_betani';
+// mongoose.connect(url);
+
+//live database
+var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
+mongoose.connect(url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,10 +41,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//API
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/petani', farmerRouter); // farmer
 app.use('/cuaca', weatherRouter); // cuaca (per kota)
+
+app.use('/petani', farmerRouter);
+
+app.use('/pembeli', buyersRouter);
+app.use('/pembeli/:buyerId', buyersRouter); 
+
+app.use('/hasil_tani', cropRouter); // added
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -50,5 +69,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// const port = process.env.PORT || 3000;
+// app.listen(port);
 
 module.exports = app;
