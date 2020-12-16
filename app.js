@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var dotenv = require('dotenv').config();
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -16,9 +18,12 @@ var cropRouter = require('./routes/cropRoute'); // added
 
 var app = express();
 
-//database
-var url = 'mongodb://localhost:27017/db_betani';
-mongoose.connect(url);
+// local database
+// var url = 'mongodb://localhost:27017/db_betani';
+// mongoose.connect(url);
+
+//live database
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/db_betani');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -57,5 +62,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const port = process.env.PORT || 3000;
+app.listen(port);
 
 module.exports = app;
