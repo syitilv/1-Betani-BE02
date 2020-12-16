@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //API
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/petani', farmerRouter); // added
 
 app.use('/petani', farmerRouter);
 
