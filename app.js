@@ -3,22 +3,22 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose'); // added
 
-// models
-var Farmer = require('./models/farmers');  // added
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-// routes
+//routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var farmerRouter = require('./routes/farmerRoute'); // added
+var farmerRouter = require('./routes/farmerRoute');
+var buyersRouter = require('./routes/buyersRoute');
 var cropRouter = require('./routes/cropRoute'); // added
 
 var app = express();
 
-// akses database
-var url = 'mongodb://localhost:27017/db_betani';  // added
-var connect = mongoose.connect(url);  // added
+//database
+var url = 'mongodb://localhost:27017/db_betani';
+mongoose.connect(url);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,9 +30,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//API
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/petani', farmerRouter); // added
+
+app.use('/petani', farmerRouter);
+
+app.use('/buyers', buyersRouter);
+app.use('/buyers/:buyerId', buyersRouter); 
+
 app.use('/hasil_tani', cropRouter); // added
 
 // catch 404 and forward to error handler
