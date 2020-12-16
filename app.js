@@ -43,8 +43,8 @@ app.use('/petani', farmerRouter); // added
 
 app.use('/petani', farmerRouter);
 
-app.use('/buyers', buyersRouter);
-app.use('/buyers/:buyerId', buyersRouter); 
+app.use('/pembeli', buyersRouter);
+app.use('/pembeli/:buyerId', buyersRouter); 
 
 app.use('/hasil_tani', cropRouter); // added
 
