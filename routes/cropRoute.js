@@ -74,9 +74,9 @@ cropRouter.route("/:id_crop/")
 })
 
 //--------------------------------------------------------------------------
-//BERDASARKAN ID HASIL TANI => HAK AKSES PEMBELI
+//BERDASARKAN ID PETANI => HAK AKSES PETANI
 cropRouter.route("/:id_farmer/crops")
-//GET crop by Id_crop (pembeli) DONE
+//GET crop by Id_farmer (petani) DONE
 .get((req, res, next) => { 
   Crop.find({"id_farmers" : req.params.id_farmer})  
   .then((hasil)=>{
@@ -91,11 +91,11 @@ cropRouter.route("/:id_farmer/crops")
       }
   })
 })
-
+//DELETE crop by Id_farmer (petani) DONE
 .delete((req, res, next) => {
   Crop.deleteMany({"id_farmers" : req.params.id_farmer})
   .then((hapus) => {
-      console.log('Data Semua Petani Berhasil Dihapus');
+      console.log('Data Semua Hasil Pertanian Berhasil Dihapus');
       res.statusCode = 200;
       res.setHeader('Content-Type','application/json');
       res.json(hapus);
@@ -103,9 +103,9 @@ cropRouter.route("/:id_farmer/crops")
 })
 
 //--------------------------------------------------------------------------
-//BERDASARKAN ID HASIL TANI => HAK AKSES PEMBELI
+//BERDASARKAN ID PETANI & ID HASIL TANI => HAK AKSES PETANI
 cropRouter.route("/:id_farmer/crops/:id_crop")
-//GET crop by Id_crop (pembeli) DONE
+// NEED SOLVE
 .get((req, res, next) => { 
   Crop.find({$or:[{_id : req.params.id_crop},{ "id_farmers" : req.params.id_farmer,}]})
   // Crop.find(
