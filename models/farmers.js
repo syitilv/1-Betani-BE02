@@ -4,36 +4,42 @@ const Schema = mongoose.Schema;
 var farmerSchema = new Schema({
     email: {
         type: String,
-        required: true,
-        unique: true
+        required: true
+    },
+    username: {
+        type: String,
+        required: true
     },
     password: {
         type: String,
         required: true
     },
-    nama_petani: {
+    nama: {
         type: String,
         required: true
     },
     tanggal_lahir: {
-        type: Date,
-        required: true
+        type: Date
     },
     alamat: {
-        type: String,
-        required: true
+        type: String
     },
     jenis_kelamin: {
-        type: String,
-        required: true
+        type: String
     },
     nomor_hp: {
+        type: String
+    },
+    image: {
+        type: String
+    },
+    role: {
         type: String,
         required: true
     },
     status: {
         type: String,
-        required: true
+        enum: ["aktif", "tidak aktif"]
     }
 }, {
     timestamps: true
