@@ -3,14 +3,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose'); // added
+// var mongoose = require('mongoose'); // added
 const bcrypt = require('bcrypt'); // register
 const jwt = require('jsonwebtoken'); // register
+const JWT_SECRET = 'sdjkakjkakaknnk@#^*#@*(owjewasmmkamkank';
 
 var dotenv = require('dotenv').config();
 
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
+// models
+// const User = require('./models/users'); // register
+const Farmers = require('./models/farmers'); // registrasi petani
+// const Admin = require('./models/admins'); // registrasi petani
+const Buyer = require('./models/buyers'); // registrasi pembeli
 
 //routes
 var indexRouter = require('./routes/index');
