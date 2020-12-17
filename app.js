@@ -12,11 +12,15 @@ const mongoose = require('mongoose');
 //routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
 var farmerRouter = require('./routes/farmerRoute'); // farmer
 var weatherRouter = require('./routes/weather');  // api bmkg
 var farmerRouter = require('./routes/farmerRoute');
 var buyersRouter = require('./routes/buyersRoute');
 var cropRouter = require('./routes/cropRoute'); // added
+
+var farmerRouter = require('./routes/farmerRoute'); // farmer
+var weatherRouter = require('./routes/weather');  // api bmkg
 
 var app = express();
 
