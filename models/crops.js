@@ -21,6 +21,10 @@ var cropsSchema = new Schema({
         type: Number, 
         default: 1 
     },
+    berat: {
+        type: Number,
+        default:1000
+    },
     harga: {
         type: Currency,
         required: true,

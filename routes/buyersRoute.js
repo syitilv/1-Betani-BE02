@@ -3,10 +3,14 @@ const express = require('express');
 const Buyer = require('../models/buyers');
 
 const buyers = express.Router();
+const {
+    userAuth,
+    checkRole
+  } = require("../utils/Auth");
 
 buyers.route('/')
 
-.get((req, res, next) => {
+.get(userAuth, checkRole(["admin"]), async(req, res, next) => {
     Buyer.find()
     .then((buyer) => {
         res.statusCode = 200;
@@ -16,7 +20,7 @@ buyers.route('/')
     .catch(err => console.log(err));
 })
 
-.post((req, res, next) => {
+.post(userAuth, checkRole(["admin"]), async(req, res, next) => {
     Buyer.create(req.body)
     .then((buyer) => {
         res.statusCode = 200;
@@ -26,7 +30,7 @@ buyers.route('/')
     .catch(err => console.log(err));
 })
 
-.delete((req, res, next) => {
+.delete(userAuth, checkRole(["admin"]), async(req, res, next) => {
     Buyer.remove()
     .then((resp) => {
         res.statusCode = 200;
@@ -38,7 +42,7 @@ buyers.route('/')
 
 buyers.route('/:buyerId')
 
-.get((req, res, next) => {
+.get(userAuth, checkRole(["admin", "buyer"]), async(req, res, next) => {
     Buyer.findById(req.params.buyerId)
     .then((buyer) =>{
         if (buyer != null) {
@@ -53,7 +57,7 @@ buyers.route('/:buyerId')
     .catch(err => console.log(err));
 })
 
-.put((req, res, next) => {
+.put(userAuth, checkRole(["admin", "buyer"]), async(req, res, next) => {
     Buyer.findByIdAndUpdate(req.params.buyerId, {$set: req.body}, {new: true})
         .then((buyer) => {
             if (buyer != null) {
@@ -68,7 +72,7 @@ buyers.route('/:buyerId')
         .catch(err => console.log(err));
 })
 
-.delete((req, res, next) => {
+.delete(userAuth, checkRole(["admin", "buyer"]), async(req, res, next) => {
     Buyer.findByIdAndDelete(req.params.buyerId)
         .then((resp) => {
             if (resp != null) {

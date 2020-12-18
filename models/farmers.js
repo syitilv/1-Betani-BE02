@@ -2,21 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var farmerSchema = new Schema({
-    email: {
-        type: String,
-        required: true
-    },
-    username: {
-        type: String,
-        required: true
+    id_user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true 
     },
     password: {
-        type: String,
-        required: true
+        type: String
     },
     nama: {
-        type: String,
-        required: true
+        type: String
     },
     tanggal_lahir: {
         type: Date
@@ -34,8 +29,7 @@ var farmerSchema = new Schema({
         type: String
     },
     role: {
-        type: String,
-        required: true
+        type: String
     },
     status: {
         type: String,
@@ -45,6 +39,13 @@ var farmerSchema = new Schema({
     timestamps: true
 });
 
-var Farmer = mongoose.model('farmer', farmerSchema);
+var Farmers;
+try {
+  Farmers = mongoose.model('Farmers', farmerSchema);
+}
+catch(e) {
+  Farmers = mongoose.model('Farmers');
+}
+// var Farmer = mongoose.model('farmer', farmerSchema);
 
-module.exports = Farmer;
+module.exports = Farmers;
