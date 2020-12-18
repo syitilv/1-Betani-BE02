@@ -3,11 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
-var dotenv = require('dotenv').config();
-
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+var cors = require('cors');
 
 //routes
 var indexRouter = require('./routes/index');
@@ -25,6 +22,9 @@ var app = express();
 //live database
 var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
 mongoose.connect(url);
+
+//access
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
