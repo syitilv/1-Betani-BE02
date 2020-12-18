@@ -9,7 +9,7 @@ const passport = require("passport");
 const bodyParser = require('body-parser');
 //routes
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/userRoute');
 var farmerRouter = require('./routes/farmerRoute');
 var buyersRouter = require('./routes/buyersRoute');
 var cropRouter = require('./routes/cropRoute');
