@@ -13,46 +13,6 @@ const {
     checkRole
   } = require("../utils/Auth");
 
-
-farmerRouter.route('/')
-
-// menambahkan data petani
-.post((req, res, next) => {
-    Farmer.create(req.body)
-    .then((tambah) => {
-        console.log('Registrasi Petani Berhasil', tambah);
-        res.statusCode = 200;
-        res.setHeader('Content-Type','application/json');
-        res.json(tambah);
-    })
-})
-
-// menampilkan semua data petani
-.get((req, res, next) => {
-    Farmer.find({})
-    .then((tampil) => {
-        res.statusCode = 200;
-        res.setHeader('Conten-Type','application/json');
-        res.json(tampil);
-    })
-})
-
-// menghapus semua data petani
-.delete((req, res, next) => {
-    Farmer.remove()
-    .then((hapus) => {
-        console.log('Data Semua Petani Berhasil Dihapus');
-        res.statusCode = 200;
-        res.setHeader('Content-Type','application/json');
-        res.json(hapus);
-    })
-})
-
-// method API (router diikuti ID Petani)
-
-// GET BY ID
-farmerRouter.route('/:farmerId')    
-
 // method API (router kosong)
 farmerRouter.route('/')
 
