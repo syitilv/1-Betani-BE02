@@ -11,7 +11,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var farmerRouter = require('./routes/farmerRoute');
 var buyersRouter = require('./routes/buyersRoute');
-var cropRouter = require('./routes/cropRoute'); // added
+var cropRouter = require('./routes/cropRoute');
 
 var app = express();
 
@@ -39,14 +39,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 //API
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/petani', farmerRouter); // added
 
 app.use('/petani', farmerRouter);
+app.use('/petani/:farmerId', farmerRouter);
 
 app.use('/pembeli', buyersRouter);
 app.use('/pembeli/:buyerId', buyersRouter); 
 
-app.use('/hasil_tani', cropRouter); // added
+app.use('/hasil_tani', cropRouter);
+app.use('/hasil_tani/:id_crop', cropRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
