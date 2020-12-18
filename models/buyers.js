@@ -2,43 +2,41 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var buyerSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true
+    id_user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true 
     },
     nama_pembeli: {
-        type: String,
-        required: true
+        type: String
     },
     tanggal_lahir: {
-        type: Date,
-        required: true
+        type: Date
     },
     alamat: {
-        type: String,
-        required: true
+        type: String
     },
     jenis_kelamin: {
-        type: String,
-        required: true
+        type: String
     },
     nomor_hp: {
-        type: String,
-        required: true
+        type: String
     },
     status: {
-        type: String,
-        required: true
+        type: String
     }
 }, {
     timestamps: true
 });
 
-var Buyers = mongoose.model('buyers', buyerSchema);
+var Buyers;
+try {
+  Buyers = mongoose.model('buyers', buyerSchema);
+}
+catch(e) {
+  Buyers = mongoose.model('buyers');
+}
+
+// var Buyers = mongoose.model('buyers', buyerSchema);
 
 module.exports = Buyers;
