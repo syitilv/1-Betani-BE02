@@ -9,15 +9,11 @@ var cors = require('cors');
 //routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
-var farmerRouter = require('./routes/farmerRoute'); // farmer
-var weatherRouter = require('./routes/weather');  // api bmkg
 var farmerRouter = require('./routes/farmerRoute');
 var buyersRouter = require('./routes/buyersRoute');
 var cropRouter = require('./routes/cropRoute');
-
-var farmerRouter = require('./routes/farmerRoute'); // farmer
-var weatherRouter = require('./routes/weather');  // api bmkg
+var weatherRouter = require('./routes/weather');  // api openweathermap
+var recipeRouter = require('./routes/recipes'); // api resep makanan
 
 var app = express();
 
@@ -45,8 +41,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //API
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/petani', farmerRouter); // farmer
-app.use('/cuaca', weatherRouter); // cuaca (per kota)
+
+app.use('/cuaca', weatherRouter); // api cuaca (per kota)
+app.use('/cari-resep', recipeRouter); // api resep makanan
 
 app.use('/petani', farmerRouter);
 app.use('/petani/:farmerId', farmerRouter);
