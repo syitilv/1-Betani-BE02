@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-// const cors = require('cors');   // added
-// const weather = require("./weather");   // added
 
 // models
 const Farmer = require('../models/farmers');
@@ -10,18 +8,9 @@ const Farmer = require('../models/farmers');
 // routes
 var farmerRouter = express.Router();    // inisiasi router
 
-// petaniRouter.use(bodyParser.json());
-// petaniRouter.use(cors());
-
-// var app = express;    // added
-
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cors());
-
-// method API (router kosong)
 farmerRouter.route('/')
 
+// menambahkan data petani
 .post((req, res, next) => {
     Farmer.create(req.body)
     .then((tambah) => {
@@ -32,6 +21,7 @@ farmerRouter.route('/')
     })
 })
 
+// menampilkan semua data petani
 .get((req, res, next) => {
     Farmer.find({})
     .then((tampil) => {
@@ -41,6 +31,7 @@ farmerRouter.route('/')
     })
 })
 
+// menghapus semua data petani
 .delete((req, res, next) => {
     Farmer.remove()
     .then((hapus) => {
@@ -52,8 +43,11 @@ farmerRouter.route('/')
 })
 
 // method API (router diikuti ID Petani)
-farmerRouter.route('/:farmerId')
 
+// GET BY ID
+farmerRouter.route('/:farmerId')    
+
+// menampilkan data petani tertentu
 .get((req, res, next) => {
     Farmer.findById(req.params.farmerId)
     .then((tampil) => {
@@ -68,6 +62,7 @@ farmerRouter.route('/:farmerId')
     });
 })
 
+// mengupdate data petani tertentu
 .put((req, res, next) => {
     Farmer.findByIdAndUpdate(req.params.farmerId, {$set: req.body}, {new: true})
     .then((update) => {
@@ -81,6 +76,7 @@ farmerRouter.route('/:farmerId')
     });
 })
 
+// menghapus data petani tertentu
 .delete((req, res, next) => {
     Farmer.findByIdAndDelete(req.params.farmerId)
     .then((hapus) => {
@@ -93,47 +89,6 @@ farmerRouter.route('/:farmerId')
         }
     });
 })
-
-// // method API (router diikuti cuaca)
-// petaniRouter.route('/:cuaca')
-// .get((req, res, next) => {
-//     Petani.find(req.params.cuaca)
-//     .then(() => {
-//         const oneDayInMs = 86400000;
-//         setInterval(() => weather.get(), oneDayInMs);
-//     })
-// })
 ;
-
-// app.route('/weather')
-// resource.get().then(() => {
-//     render('index');
-// });
-// app.get('/weather', weather.index);
-
-// app.route('/')
-// resource.get().then(() => {
-//     const oneDayInMs = 86400000;
-//     setInterval(() => weather.get(), oneDayInMs);
-// });
-
-// app.listen(3000, function () {
-//     console.log('Example app listening on port 4000!');
-
-//     resource.get()
-//         .then(() => {
-            // const oneDayInMs = 86400000;
-            // setInterval(() => weather.get(), oneDayInMs);
-//         });
-// });
-
-// app.listen(4000, function () {
-// // Update
-//     resource.get()
-//         .then(() => {
-//             const oneDayInMs = 86400000;
-//             setInterval(() => weather.get(), oneDayInMs);
-//         });
-// });
 
 module.exports = farmerRouter;

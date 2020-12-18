@@ -9,21 +9,25 @@ var cors = require('cors');
 //routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
 var farmerRouter = require('./routes/farmerRoute'); // farmer
 var weatherRouter = require('./routes/weather');  // api bmkg
 var farmerRouter = require('./routes/farmerRoute');
 var buyersRouter = require('./routes/buyersRoute');
 var cropRouter = require('./routes/cropRoute');
 
+var farmerRouter = require('./routes/farmerRoute'); // farmer
+var weatherRouter = require('./routes/weather');  // api bmkg
+
 var app = express();
 
 // local database
-// var url = 'mongodb://localhost:27017/db_betani';
-// mongoose.connect(url);
+var url = 'mongodb://localhost:27017/db_betani';
+mongoose.connect(url);
 
 //live database
-var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
-mongoose.connect(url);
+// var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
+// mongoose.connect(url);
 
 //access
 app.use(cors());
