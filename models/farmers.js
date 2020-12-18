@@ -7,9 +7,6 @@ var farmerSchema = new Schema({
         ref: 'users',
         required: true 
     },
-    password: {
-        type: String
-    },
     nama: {
         type: String
     },
