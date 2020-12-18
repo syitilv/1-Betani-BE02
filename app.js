@@ -20,12 +20,12 @@ var ongkirRouter = require('./routes/ongkirRoute');
 var app = express();
 
 // local database
-// var url = 'mongodb://localhost:27017/db_betani';
-// mongoose.connect(url);
+var url = 'mongodb://localhost:27017/db_betani';
+mongoose.connect(url);
 
 //live database
-var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
-mongoose.connect(url);
+// var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
+// mongoose.connect(url);
 
 //access
 app.use(cors());
