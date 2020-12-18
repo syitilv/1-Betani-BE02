@@ -8,6 +8,8 @@ const mongoose = require('mongoose');
 var cors = require('cors');
 const passport = require("passport");
 const bodyParser = require('body-parser');
+var multer = require('multer');
+
 //routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRoute');
@@ -17,18 +19,28 @@ var cropRouter = require('./routes/cropRoute');
 var weatherRouter = require('./routes/weather');  // api openweathermap
 var recipeRouter = require('./routes/recipes'); // api resep makanan
 var ongkirRouter = require('./routes/ongkirRoute');
+var cartsRouter = require('./routes/cartsRoute');
+var transactionsRouter = require('./routes/transactionsRoute');
 
 var app = express();
 
 // local database
-var url = 'mongodb://localhost:27017/db_betani';
-mongoose.connect(url);
-
-//live database
-// var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
+// var url = 'mongodb://localhost:27017/db_betani';
 // mongoose.connect(url);
 
+//live database
+var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
+mongoose.connect(url);
+
 //access
+app.all('*', function(req, res, next) {
+  var origin = req.get('origin'); 
+  res.header('Access-Control-Allow-Origin', origin);
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 app.use(cors());
 
 // view engine setup
@@ -46,6 +58,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //MIDDLEWARES
 require("./middlewares/passport")(passport);
+// app.use(multer({ dest: './uploads/',
+//   rename: function (fieldname, filename) {
+//     return filename;
+//   },
+//  }));
 
 //API
 app.use('/', indexRouter);
@@ -59,7 +76,16 @@ app.use('/petani/:farmerId', farmerRouter);
 app.use('/pembeli', buyersRouter);
 app.use('/pembeli/:buyerId', buyersRouter); 
 app.use('/hasil_tani', cropRouter);
+app.use('/hasil_tani:hasilId', cropRouter);
 app.use('/ongkir', ongkirRouter);
+app.use('/keranjang', cartsRouter);
+app.use('/keranjang/:keranjangId', cartsRouter);
+app.use('/transaksi', transactionsRouter);
+app.use('/transaksi/:transaksiId/diproses', transactionsRouter); 
+app.use('/transaksi/dkirim', transactionsRouter); 
+app.use('/transaksi/selesai', transactionsRouter); 
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -33,7 +33,7 @@ farmerRouter.route('/')
     .then((tampil) => {
         res.statusCode = 200;
         res.setHeader('Content-Type','application/json');
-        return res.json(tampil);
+        res.json(tampil);
     })
 })
 
