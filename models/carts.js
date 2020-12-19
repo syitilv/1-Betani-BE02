@@ -14,8 +14,8 @@ var cartSchema = new Schema({
             ref: 'crops',
           },
           quantity: Number,
-        //   name: String,
-        //   price: Number
+          name: String,
+          price: Number
         }
     ]
 }, {

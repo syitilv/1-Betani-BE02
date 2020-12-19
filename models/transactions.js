@@ -36,7 +36,7 @@ var transactionSchema = new Schema({
     },
     status: {
         type: String,
-        required: true
+        enum: ["dibayar", "diproses", "ditolak", "dikirim", "selesai"]
     }
 }, {
     timestamps: true

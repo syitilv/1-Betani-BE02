@@ -21,6 +21,7 @@ var recipeRouter = require('./routes/recipes'); // api resep makanan
 var ongkirRouter = require('./routes/ongkirRoute');
 var cartsRouter = require('./routes/cartsRoute');
 var transactionsRouter = require('./routes/transactionsRoute');
+var forgotPassRouter = require('./routes/forgotPassRoute');
 
 var app = express();
 
@@ -76,15 +77,11 @@ app.use('/petani/:farmerId', farmerRouter);
 app.use('/pembeli', buyersRouter);
 app.use('/pembeli/:buyerId', buyersRouter); 
 app.use('/hasil_tani', cropRouter);
-app.use('/hasil_tani:hasilId', cropRouter);
+app.use('/hasil_tani/:hasilId', cropRouter);
 app.use('/ongkir', ongkirRouter);
 app.use('/keranjang', cartsRouter);
-app.use('/keranjang/:keranjangId', cartsRouter);
 app.use('/transaksi', transactionsRouter);
-app.use('/transaksi/:transaksiId/diproses', transactionsRouter); 
-app.use('/transaksi/:transaksiId/dikirim', transactionsRouter); 
-app.use('/transaksi/:transaksiId/selesai', transactionsRouter); 
-
+app.use('/lupaPassword', forgotPassRouter); 
 
 
 // catch 404 and forward to error handler

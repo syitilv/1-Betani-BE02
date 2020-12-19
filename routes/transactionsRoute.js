@@ -17,6 +17,7 @@ function makeid(length) {
 
 transactions.route('/')
 
+//get all transaction (admin)
 .get((req, res, next) => {
     Transaction.find()
     .then((transaction) => {
@@ -27,6 +28,7 @@ transactions.route('/')
     .catch(err => console.log(err));
 })
 
+//create transaction (buyer)
 .post((req, res, next) => {
     var newTransaction = new Transaction(req.body);
     // newTransaction.bukti_pembayaran.data = fs.readFileSync(req.body.bukti_pembayaran);
@@ -38,7 +40,7 @@ transactions.route('/')
     })
     newTransaction.total = total;
     newTransaction.no_resi = makeid(10);
-    newTransaction.status = 'sudah membayar';
+    newTransaction.status = 'dibayar';
     console.log(newTransaction);
     newTransaction.save().then((transaction) => {
         res.statusCode = 200;
@@ -48,6 +50,7 @@ transactions.route('/')
     .catch(err => console.log(err));
 })
 
+//delete all transaction (admin)
 .delete((req, res, next) => {
     Transaction.remove()
     .then((resp) => {
@@ -58,8 +61,9 @@ transactions.route('/')
     .catch(err => console.log(err));
 });
 
-transactions.route('/:TransactionId')
+transactions.route('/:transaksiId')
 
+//get transaksi by id (buyer)
 .get((req, res, next) => {
     Transaction.findById(req.params.transactionId)
     .then((transaction) =>{
@@ -75,21 +79,7 @@ transactions.route('/:TransactionId')
     .catch(err => console.log(err));
 })
 
-.put((req, res, next) => {
-    Transaction.findByIdAndUpdate(req.params.transactionId, {$set: req.body}, {new: true})
-        .then((transaction) => {
-            if (transaction != null) {
-                res.statusCode = 200;
-                res.setHeader('Content-Type', 'application/json');
-                res.json(transaction);
-            } else {
-                res.statusCode = 403;
-                res.end('Not found');
-            }
-        })
-        .catch(err => console.log(err));
-})
-
+//delete transaksi by id (buyer)
 .delete((req, res, next) => {
     transaction.findByIdAndDelete(req.params.transactionId)
         .then((resp) => {
@@ -105,11 +95,11 @@ transactions.route('/:TransactionId')
         .catch(err => console.log(err));
 });
 
-transactions.route('/:transaksiId/diproses')
+//update transaction status to DITOLAK (farmer)
+transactions.route('/:transaksiId/ditolak')
 .put((req, res, next) => {
-    Transaction.findByIdAndUpdate(req.params.transaksiId, {$set: {'status': 'diproses'}}, {new: true})
+    Transaction.findByIdAndUpdate(req.params.transaksiId, {$set: {'status': 'ditolak'}}, {new: true})
         .then((transaction) => {
-            console.log("ini trans ", transaction);
             if (transaction != null) {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -122,6 +112,24 @@ transactions.route('/:transaksiId/diproses')
         .catch(err => console.log(err));
 });
 
+//update transaction status to DIPROSES (farmer)
+transactions.route('/:transaksiId/diproses')
+.put((req, res, next) => {
+    Transaction.findByIdAndUpdate(req.params.transaksiId, {$set: {'status': 'diproses'}}, {new: true})
+        .then((transaction) => {
+            if (transaction != null) {
+                res.statusCode = 200;
+                res.setHeader('Content-Type', 'application/json');
+                res.json(transaction);
+            } else {
+                res.statusCode = 403;
+                res.end('Not found');
+            }
+        })
+        .catch(err => console.log(err));
+});
+
+//update transaction status to DIKIRIM (courier)
 transactions.route('/:transaksiId/dikirim')
 .put((req, res, next) => {
     Transaction.findByIdAndUpdate(req.params.transaksiId, {$set: {'status': 'dikirim'}}, {new: true})
@@ -138,6 +146,7 @@ transactions.route('/:transaksiId/dikirim')
         .catch(err => console.log(err));
 })
 
+//update transaction status to SELESAI (buyer)
 transactions.route('/:transaksiId/selesai')
 .put((req, res, next) => {
     Transaction.findByIdAndUpdate(req.params.transaksiId, {$set: {'status': 'selesai'}}, {new: true})
