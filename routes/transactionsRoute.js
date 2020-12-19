@@ -107,8 +107,9 @@ transactions.route('/:TransactionId')
 
 transactions.route('/:transaksiId/diproses')
 .put((req, res, next) => {
-    Transaction.findByIdAndUpdate(req.params.transactionId, {$set: {'status': 'diproses'}}, {new: true})
+    Transaction.findByIdAndUpdate(req.params.transaksiId, {$set: {'status': 'diproses'}}, {new: true})
         .then((transaction) => {
+            console.log("ini trans ", transaction);
             if (transaction != null) {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -121,9 +122,9 @@ transactions.route('/:transaksiId/diproses')
         .catch(err => console.log(err));
 });
 
-transactions.route('/dikirim')
+transactions.route('/:transaksiId/dikirim')
 .put((req, res, next) => {
-    Transaction.findByIdAndUpdate(req.params.transactionId, {$set: {'status': 'dikirim'}}, {new: true})
+    Transaction.findByIdAndUpdate(req.params.transaksiId, {$set: {'status': 'dikirim'}}, {new: true})
         .then((transaction) => {
             if (transaction != null) {
                 res.statusCode = 200;
@@ -137,9 +138,9 @@ transactions.route('/dikirim')
         .catch(err => console.log(err));
 })
 
-transactions.route('/selesai')
+transactions.route('/:transaksiId/selesai')
 .put((req, res, next) => {
-    Transaction.findByIdAndUpdate(req.params.transactionId, {$set: {'status': 'selesai'}}, {new: true})
+    Transaction.findByIdAndUpdate(req.params.transaksiId, {$set: {'status': 'selesai'}}, {new: true})
         .then((transaction) => {
             if (transaction != null) {
                 res.statusCode = 200;

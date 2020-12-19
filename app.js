@@ -82,8 +82,8 @@ app.use('/keranjang', cartsRouter);
 app.use('/keranjang/:keranjangId', cartsRouter);
 app.use('/transaksi', transactionsRouter);
 app.use('/transaksi/:transaksiId/diproses', transactionsRouter); 
-app.use('/transaksi/dkirim', transactionsRouter); 
-app.use('/transaksi/selesai', transactionsRouter); 
+app.use('/transaksi/:transaksiId/dikirim', transactionsRouter); 
+app.use('/transaksi/:transaksiId/selesai', transactionsRouter); 
 
 
 
