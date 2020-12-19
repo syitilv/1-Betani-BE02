@@ -2,43 +2,47 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 var farmerSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true
+    id_user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+        required: true 
     },
-    password: {
-        type: String,
-        required: true
-    },
-    nama_petani: {
-        type: String,
-        required: true
+    nama: {
+        type: String
     },
     tanggal_lahir: {
-        type: Date,
-        required: true
+        type: Date
     },
     alamat: {
-        type: String,
-        required: true
+        type: String
     },
     jenis_kelamin: {
-        type: String,
-        required: true
+        type: String
     },
     nomor_hp: {
-        type: String,
-        required: true
+        type: String
+    },
+    image: {
+        type: String
+    },
+    role: {
+        type: String
     },
     status: {
         type: String,
-        required: true
+        enum: ["aktif", "tidak aktif"]
     }
 }, {
     timestamps: true
 });
 
-var Farmer = mongoose.model('farmer', farmerSchema);
+var Farmers;
+try {
+  Farmers = mongoose.model('Farmers', farmerSchema);
+}
+catch(e) {
+  Farmers = mongoose.model('Farmers');
+}
+// var Farmer = mongoose.model('farmer', farmerSchema);
 
-module.exports = Farmer;
+module.exports = Farmers;
