@@ -7,10 +7,6 @@ const Crop = require('../models/crops');
 var cropRouter = express.Router();
  
 cropRouter.use(bodyParser.json());
-const {
-  userAuth,
-  checkRole
-} = require("../utils/Auth");
 
 cropRouter.route('/') 
 //GET all crops (halaman utama pembeli) DONE
