@@ -7,14 +7,10 @@ const Crop = require('../models/crops');
 var cropRouter = express.Router();
  
 cropRouter.use(bodyParser.json());
-const {
-  userAuth,
-  checkRole
-} = require("../utils/Auth");
 
 cropRouter.route('/') 
 //GET all crops (halaman utama pembeli) DONE
-  .get(async(req, res, next) => {
+  .get((req, res, next) => {
     Crop.find({})
       .then((hasil) => {
         res.statusCode = 200;
@@ -23,7 +19,7 @@ cropRouter.route('/')
       });
   })
   //POST crops (farmer) DONE
-  .post(userAuth, checkRole(["farmer"]), async(req, res, next) => { 
+  .post((req, res, next) => { 
     Crop.create(req.body)
       .then((hasil_tani) => {
         console.log('Hasil Pertanian Ditambahkan', hasil_tani);
@@ -77,10 +73,10 @@ cropRouter.route("/:id_crop/")
           res.statusCode = 200;
           res.json(update);
       }
-  });
+  })
 })
 //DELETE crop by Id_crop DONE
-.delete(userAuth, checkRole(["farmer"]), async(req, res, next) => { 
+.delete((req, res, next) => { 
   Crop.findByIdAndDelete(req.params.id_crop)
   .then((hapus) => {
       if(hapus == null){
@@ -112,7 +108,7 @@ cropRouter.route("/:id_farmer/crops")
   })
 })
 //DELETE crop by Id_farmer (petani) DONE
-.delete(userAuth, checkRole(["farmer"]), async(req, res, next) => {
+.delete((req, res, next) => {
   Crop.deleteMany({"id_farmers" : req.params.id_farmer})
   .then((hapus) => {
       console.log('Data Semua Hasil Pertanian Berhasil Dihapus');
@@ -149,5 +145,3 @@ cropRouter.route("/:id_farmer/crops")
 // })
 
 module.exports = cropRouter;
-
-
