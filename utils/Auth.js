@@ -8,10 +8,10 @@ const passport = require("passport");
 // const Admin = mongoose.models('Admin');
 // const Couriers = mongoose.models('Couriers');
 const User = require("../models/users");
-const Buyers = require("../models/Buyers");
-const Farmers = require("../models/Farmers");
-const Couriers = require("../models/Couriers");
-const Admin = require("../models/Admin");
+const Buyers = require("../models/buyers");
+const Farmers = require("../models/farmers");
+const Couriers = require("../models/couriers");
+const Admin = require("../models/admin");
 const { SECRET } = require("../config");
 
 /**
