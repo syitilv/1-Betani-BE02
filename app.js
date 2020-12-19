@@ -1,3 +1,4 @@
+var cors = require('cors')
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -7,6 +8,8 @@ const mongoose = require('mongoose');
 var cors = require('cors');
 const passport = require("passport");
 const bodyParser = require('body-parser');
+var multer = require('multer');
+
 //routes
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRoute');
@@ -16,6 +19,9 @@ var cropRouter = require('./routes/cropRoute');
 var weatherRouter = require('./routes/weather');  // api openweathermap
 var recipeRouter = require('./routes/recipes'); // api resep makanan
 var ongkirRouter = require('./routes/ongkirRoute');
+var cartsRouter = require('./routes/cartsRoute');
+var transactionsRouter = require('./routes/transactionsRoute');
+var forgotPassRouter = require('./routes/forgotPassRoute');
 
 var app = express();
 
@@ -53,6 +59,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //MIDDLEWARES
 require("./middlewares/passport")(passport);
+// app.use(multer({ dest: './uploads/',
+//   rename: function (fieldname, filename) {
+//     return filename;
+//   },
+//  }));
 
 //API
 app.use('/', indexRouter);
@@ -66,7 +77,12 @@ app.use('/petani/:farmerId', farmerRouter);
 app.use('/pembeli', buyersRouter);
 app.use('/pembeli/:buyerId', buyersRouter); 
 app.use('/hasil_tani', cropRouter);
+app.use('/hasil_tani/:hasilId', cropRouter);
 app.use('/ongkir', ongkirRouter);
+app.use('/keranjang', cartsRouter);
+app.use('/transaksi', transactionsRouter);
+app.use('/lupaPassword', forgotPassRouter); 
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
