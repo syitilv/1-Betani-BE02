@@ -30,13 +30,13 @@ var transactionSchema = new Schema({
     no_resi: {
         type: String,
     },
-    bukti_pembayaran: {
+    file: {
         data: Buffer,
         contentType: String
     },
     status: {
         type: String,
-        enum: ["dibayar", "diproses", "ditolak", "dikirim", "selesai"]
+        enum: ["dipesan", "dibayar", "diproses", "ditolak", "dikirim", "selesai"]
     }
 }, {
     timestamps: true

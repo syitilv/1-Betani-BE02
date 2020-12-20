@@ -21,10 +21,11 @@ carts.route('/')
 .post(async(req, res, next) => {
     try {
     const data = req.body;
-    const userId = data[0].userId;
-    const products = data[0].products[0];
-    const productId = data[0].products[0].productId;
-    const quantity = data[0].products[0].quantity;
+    console.log(data);
+    const userId = data.userId;
+    const products = data.products;
+    const productId = data.products.productId;
+    const quantity = data.products.quantity;
     
     let cart = await Cart.findOne({ userId: {$eq: userId} });
 
@@ -53,15 +54,15 @@ carts.route('/')
 })
 
 // //delete all cart (admin)
-// .delete((req, res, next) => {
-//     Cart.remove()
-//     .then((resp) => {
-//         res.statusCode = 200;
-//         res.setHeader('Content-Type', 'application/json');
-//         res.json(resp);
-//     })
-//     .catch(err => console.log(err));
-// });
+.delete((req, res, next) => {
+    Cart.remove()
+    .then((resp) => {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json(resp);
+    })
+    .catch(err => console.log(err));
+});
 
 carts.route('/:cartId')
 

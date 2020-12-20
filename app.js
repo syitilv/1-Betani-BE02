@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 var cors = require('cors');
 const passport = require("passport");
 const bodyParser = require('body-parser');
-var multer = require('multer');
 
 //routes
 var indexRouter = require('./routes/index');
@@ -22,6 +21,7 @@ var ongkirRouter = require('./routes/ongkirRoute');
 var cartsRouter = require('./routes/cartsRoute');
 var transactionsRouter = require('./routes/transactionsRoute');
 var forgotPassRouter = require('./routes/forgotPassRoute');
+var uploadFile = require('./routes/upload');
 
 var app = express();
 
@@ -82,6 +82,7 @@ app.use('/ongkir', ongkirRouter);
 app.use('/keranjang', cartsRouter);
 app.use('/transaksi', transactionsRouter);
 app.use('/lupaPassword', forgotPassRouter); 
+app.use('/upload', uploadFile); 
 
 
 // catch 404 and forward to error handler
