@@ -26,7 +26,7 @@ farmerRouter.route('/')
     })
 })
 
-.get(userAuth, checkRole(["admin"]), async(req, res, next) => {
+.get((req, res, next) => {
     Farmer.find({})
     .then((tampil) => {
         res.statusCode = 200;
@@ -48,7 +48,7 @@ farmerRouter.route('/')
 // method API (router diikuti ID Petani)
 farmerRouter.route('/:farmerId')
 
-.get(userAuth, checkRole(["admin", "farmer"]), async(req, res, next) => {
+.get((req, res, next) => {
     Farmer.findById(req.params.farmerId)
     .then((tampil) => {
         if(tampil == null){
