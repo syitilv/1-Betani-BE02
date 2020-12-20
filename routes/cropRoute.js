@@ -7,6 +7,10 @@ const Crop = require('../models/crops');
 var cropRouter = express.Router();
  
 cropRouter.use(bodyParser.json());
+const {
+  userAuth,
+  checkRole
+} = require("../utils/Auth");
 
 cropRouter.route('/') 
 //GET all crops (halaman utama pembeli) DONE
@@ -19,7 +23,7 @@ cropRouter.route('/')
       });
   })
   //POST crops (farmer) DONE
-  .post((req, res, next) => { 
+  .post(userAuth, checkRole(["farmer"]), async(req, res, next) => { 
     Crop.create(req.body)
       .then((hasil_tani) => {
         console.log('Hasil Pertanian Ditambahkan', hasil_tani);
@@ -63,7 +67,7 @@ cropRouter.route("/:id_crop/")
     res.end('POST Operation is not supported')
 })
 //PUT crop by Id_crop DONE
-.put((req, res, next) => { 
+.put(userAuth, checkRole(["farmer"]), async(req, res, next) => { 
   Crop.findByIdAndUpdate(req.params.id_crop, {$set: req.body}, {new: true})
   .then((update) => {
       if(update == null){
@@ -73,10 +77,10 @@ cropRouter.route("/:id_crop/")
           res.statusCode = 200;
           res.json(update);
       }
-  })
+  });
 })
 //DELETE crop by Id_crop DONE
-.delete((req, res, next) => { 
+.delete(userAuth, checkRole(["farmer"]), async(req, res, next) => { 
   Crop.findByIdAndDelete(req.params.id_crop)
   .then((hapus) => {
       if(hapus == null){
@@ -108,7 +112,7 @@ cropRouter.route("/:id_farmer/crops")
   })
 })
 //DELETE crop by Id_farmer (petani) DONE
-.delete((req, res, next) => {
+.delete(userAuth, checkRole(["farmer"]), async(req, res, next) => {
   Crop.deleteMany({"id_farmers" : req.params.id_farmer})
   .then((hapus) => {
       console.log('Data Semua Hasil Pertanian Berhasil Dihapus');
@@ -119,29 +123,6 @@ cropRouter.route("/:id_farmer/crops")
 })
 
 
-//--------------------------------------------------------------------------
-//BERDASARKAN ID PETANI & ID HASIL TANI => HAK AKSES PETANI
-// cropRouter.route("/:id_farmer/crops/:id_crop")
-// // NEED SOLVE
-// .get((req, res, next) => { 
-//   Crop.find({$or:[{_id : req.params.id_crop},{ "id_farmers" : req.params.id_farmer,}]})
-//   // Crop.find(
-//   //   {
-//   //     "id_farmers" : req.params.id_farmer,
-//   //     "_id" : req.params.id_crop
-//   //   }
-//   //   )  
-//   .then((hasil)=>{
-//       if (hasil) {
-//           res.statusCode = 200
-//           res.setHeader('Content-type','application/json')
-//           res.json(hasil) 
-//       }
-//       else{
-//           res.statusCode = 404;
-//           res.end('Hasil pertanian belum ada');
-//       }
-//   })
-// })
-
 module.exports = cropRouter;
+
+
