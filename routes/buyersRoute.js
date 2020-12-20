@@ -10,7 +10,7 @@ const {
 
 buyers.route('/')
 
-.get(userAuth, checkRole(["admin"]), async(req, res, next) => {
+.get((req, res, next) => {
     Buyer.find()
     .then((buyer) => {
         res.statusCode = 200;
@@ -42,7 +42,7 @@ buyers.route('/')
 
 buyers.route('/:buyerId')
 
-.get(userAuth, checkRole(["admin", "buyer"]), async(req, res, next) => {
+.get((req, res, next) => {
     Buyer.findById(req.params.buyerId)
     .then((buyer) =>{
         if (buyer != null) {
