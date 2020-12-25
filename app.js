@@ -30,7 +30,7 @@ var app = express();
 // mongoose.connect(url);
 
 //live database
-var url = 'mongodb+srv://admin:adminbetani@cluster0.su99b.mongodb.net/db_betani?retryWrites=true&w=majority';
+var url = process.env.DATABASE_URI ;
 mongoose.connect(url);
 
 //access
