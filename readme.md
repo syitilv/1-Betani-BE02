@@ -1,4 +1,4 @@
-This repository contains Betani RESTful API that can be accessed through https://betani.herokuapp.com/.
+This repository contains Betani REST API in Node.js that can be accessed through https://betani.herokuapp.com/.
 
 # Betani
 Betani (Belanja Hasil Tani) merupakan sebuah aplikasi marketplace yang memfasilitasi para petani di Indonesia untuk memasarkan hasil tani mereka. Melalui aplikasi Betani, masyarakat bisa membeli hasil tani yang langsung dikirim dari kebunnya. Beberapa fitur yang tersedia:
